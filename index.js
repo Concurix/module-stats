@@ -9,6 +9,6 @@ var wrapper = require('./lib/wrapper');
 
 exports.wrap = function wrap(name, obj, options){
   if( obj ){
-    wrapper.wrapExports(name, obj);
+    return wrapper.wrapExports(name, obj);
   }
 }
