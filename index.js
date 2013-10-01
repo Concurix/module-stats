@@ -6,10 +6,9 @@
 */
 
 var wrapper = require('./lib/wrapper');
-var hooks   = require('./lib/hooks');
 
 exports.wrap = function wrap(name, obj, options){
   if( obj ){
-    wrapper.wrapExport(obj);
+    wrapper.wrapExports(name, obj);
   }
 }
