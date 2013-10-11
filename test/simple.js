@@ -44,7 +44,28 @@ describe('basic wrapping test', function(){
       ret.a(1,1).should.equal(2);
       ret.b(1,1).should.equal(2);
     });
-  });    
+  }); 
+  
+  describe('before hook test', function(){
+    // simple test objects
+    var exportTest = {
+      a: function a(arg1, arg2){ return arg1 + arg2;},
+      b: function b(arg2, arg2){ return arg1 + arg2;},
+      c: "hello"
+    }
+    var test = 1;
+    clientState = 2;
+    function beforeHook(trace, clientState){
+      test = clientState;
+    }
+    it('functions a and b should be wrapped', function(){
+      mstats.wrap("test", exportTest, {beforeHook: beforeHook, state: clientState});
+      exportTest.a.__concurix_wrapper_for__.should.equal('a');
+      exportTest.b.__concurix_wrapper_for__.should.equal('b');
+      exportTest.a();
+      test.should.equal(2);
+    });
+  });     
 });
   
 
