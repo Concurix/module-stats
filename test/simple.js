@@ -30,7 +30,21 @@ describe('basic wrapping test', function(){
       exportFunction.b.__concurix_wrapper_for__.should.equal('b');
       ret.__concurix_wrapper_for__.should.equal('exportFunction');
     });
-  });  
+  });
+  
+  describe('method invocation', function(){
+    var exportFunction = function exportFunction(arg1, arg2){
+      return arg1 + arg2;
+    }
+    exportFunction["a"] = function a(arg1, arg2){ return arg1 + arg2;};
+    exportFunction["b"] = function b(arg1, arg2){ return arg1 + arg2;};
+    
+    it('wrapped methods should be called and return the correct answer', function(){
+      var ret = mstats.wrap("test", exportFunction);
+      ret.a(1,1).should.equal(2);
+      ret.b(1,1).should.equal(2);
+    });
+  });    
 });
   
 
