@@ -89,6 +89,8 @@ describe('basic wrapping test', function(){
       exportTest.a();
       console.log('cache ', global.concurix.traceAggregate.nodeCache);
       global.concurix.traceAggregate.nodeCache[id].num_calls.should.equal(2);
+      global.concurix.traceAggregate.nodeCache[id].duration.should.not.be.NaN;
+      global.concurix.traceAggregate.nodeCache[id].mem_delta.should.not.be.NaN;
     });
   });       
 });
