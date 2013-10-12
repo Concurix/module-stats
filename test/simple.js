@@ -7,7 +7,7 @@ describe('basic wrapping test', function(){
     // simple test objects
     var exportTest = {
       a: function a(arg1, arg2){ return arg1 + arg2;},
-      b: function b(arg2, arg2){ return arg1 + arg2;},
+      b: function b(arg1, arg2){ return arg1 + arg2;},
       c: "hello"
     }
     it('functions a and b should be wrapped', function(){
@@ -22,7 +22,7 @@ describe('basic wrapping test', function(){
       return arg1 + arg2;
     }
     exportFunction["a"] = function a(arg1, arg2){ return arg1 + arg2;};
-    exportFunction["b"] = function b(arg2, arg2){ return arg1 + arg2;};
+    exportFunction["b"] = function b(arg1, arg2){ return arg1 + arg2;};
     
     it('functions a and b and the obj itself should be wrapped', function(){
       var ret = mstats.wrap("test", exportFunction);
@@ -73,7 +73,7 @@ describe('basic wrapping test', function(){
     // simple test objects
     var exportTest = {
       a: function a(arg1, arg2){ return arg1 + arg2;},
-      b: function b(arg2, arg2){ return arg1 + arg2;},
+      b: function b(arg1, arg2){ return arg1 + arg2;},
       c: "hello"
     };
     var id = null;
@@ -91,6 +91,8 @@ describe('basic wrapping test', function(){
       global.concurix.traceAggregate.nodeCache[id].num_calls.should.equal(2);
       global.concurix.traceAggregate.nodeCache[id].duration.should.not.be.NaN;
       global.concurix.traceAggregate.nodeCache[id].mem_delta.should.not.be.NaN;
+      exportTest.b();
+      global.concurix.traceAggregate.nodeCache[id].num_calls.should.equal(1);      
     });
   });       
 });
