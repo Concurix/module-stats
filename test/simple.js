@@ -54,9 +54,10 @@ describe('basic wrapping test', function(){
       c: "hello"
     }
     var test = 1;
-    clientState = 2;
+    clientState = {val: 2};
     function beforeHook(trace, clientState){
-      test = clientState;
+      test = clientState.val;
+      clientState.val = 3;;
     }
     it('functions a and b should be wrapped', function(){
       mstats.wrap("test", exportTest, {beforeHook: beforeHook, state: clientState});
@@ -64,6 +65,7 @@ describe('basic wrapping test', function(){
       exportTest.b.__concurix_wrapper_for__.should.equal('b');
       exportTest.a();
       test.should.equal(2);
+      clientState.val.should.equal(3);
     });
   });     
 });
