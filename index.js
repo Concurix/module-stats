@@ -12,3 +12,10 @@ exports.wrap = function wrap(name, obj, options){
     return wrapper.wrapExports(name, obj, options);
   }
 }
+
+exports.reset = function reset(){
+  if( global.concurix && global.concurix.traceAggregate ){
+    global.concurix.traceAggregate.stop();
+    global.concurix.traceAggregate.start();
+  }
+}

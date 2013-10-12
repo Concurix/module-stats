@@ -67,7 +67,30 @@ describe('basic wrapping test', function(){
       test.should.equal(2);
       clientState.val.should.equal(3);
     });
-  });     
+  });
+  
+  describe('call count test', function(){
+    // simple test objects
+    var exportTest = {
+      a: function a(arg1, arg2){ return arg1 + arg2;},
+      b: function b(arg2, arg2){ return arg1 + arg2;},
+      c: "hello"
+    };
+    var id = null;
+    function beforeHook(trace, clientState){
+      id = trace.funInfo.id;
+    }
+    it('count for a should be 2', function(){
+      mstats.reset();
+      mstats.wrap("test", exportTest, {beforeHook: beforeHook});
+      exportTest.a.__concurix_wrapper_for__.should.equal('a');
+      exportTest.b.__concurix_wrapper_for__.should.equal('b');
+      exportTest.a();
+      exportTest.a();
+      console.log('cache ', global.concurix.traceAggregate.nodeCache);
+      global.concurix.traceAggregate.nodeCache[id].num_calls.should.equal(2);
+    });
+  });       
 });
   
 
