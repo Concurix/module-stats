@@ -118,7 +118,14 @@ describe('basic wrapping test', function(){
       global.concurix.traceAggregate.nodeCache[id].duration.should.not.be.NaN;
       global.concurix.traceAggregate.nodeCache[id].mem_delta.should.not.be.NaN;
       exportTest.b();
-      global.concurix.traceAggregate.nodeCache[id].num_calls.should.equal(3);   
+      global.concurix.traceAggregate.nodeCache[id].num_calls.should.equal(3); 
+      
+      //now test the link cache
+      var linkCache = global.concurix.traceAggregate.linkCache;
+      var keys = Object.keys(linkCache);
+      keys.length.should.equal(1);
+      linkCache[keys[0]].num_calls.should.equal(3);
+      linkCache[keys[0]].total_delay.should.not.be.NaN;  
     });
   });  
        
