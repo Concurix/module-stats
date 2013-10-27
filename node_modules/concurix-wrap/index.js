@@ -50,17 +50,19 @@ module.exports = function wrap(wrapFun){
         if (!script){
           // do not wrap native code or extensions
           funInfo.abortWrap = true;
+        } else {
+          funInfo.file = script.name;
+          funInfo.loc  = v8debug.Debug.findFunctionSourceLocation(this.orgFun);
+          funInfo.id   = funInfo.file + ":" + funInfo.loc.position;
         }
-        funInfo.file = script.name;
-        funInfo.loc = v8debug.Debug.findFunctionSourceLocation(this.orgFun);
-        funInfo.id = funInfo.file + ":" + funInfo.loc.position;
       } else {
         // do not wrap native code or extensions
         var funSrc = this.orgFun.toString();
         if (funSrc.match(/\{ \[native code\] \}$/)){
           funInfo.abortWrap = true; 
         }
-        // if we don't have the v8debug info, then create a hash from the code to do our best to be able to compare the same function
+        // if we don't have the v8debug info, then create a hash from the
+        // code to do our best to be able to compare the same function
         funInfo.file = this.moduleName;
         funInfo.loc = {position: 0, line: 0};
         funInfo.id = computeHash(this.moduleName + funSrc);
@@ -139,7 +141,7 @@ module.exports = function wrap(wrapFun){
           throw rethrow;
         }
         return trace.ret;      
-      }
+      };
     
       //now compute various wrapper information
       this.computeFunctionInfo();
@@ -164,8 +166,9 @@ module.exports = function wrap(wrapFun){
   };
     
   wrapperState.orgFun = wrapFun;
+
   return wrapperState;
-}
+};
 
 
 
