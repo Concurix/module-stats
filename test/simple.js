@@ -122,6 +122,7 @@ describe('basic wrapping test', function(){
       //now test the link cache
       var linkCache = global.concurix.traceAggregate.linkCache;
       var keys = Object.keys(linkCache);
+      console.log('LINKCACHE', linkCache);
       keys.length.should.equal(1);
       linkCache[keys[0]].num_calls.should.equal(3);
       linkCache[keys[0]].total_delay.should.not.be.NaN;  
@@ -130,11 +131,11 @@ describe('basic wrapping test', function(){
   
   describe('callback test', function(){
     // simple test objects
-    function callback(arg){ console.log("CALLBACK!!!"); return arg;}
+    function callback(arg){ return arg;}
     
     var exportTest = {
-      a: function a(arg1, cb ){ console.log("called a", cb); return cb(arg1 + arg1);},
-      b: function b(arg1){ console.log("trying to call b", callback); return this.a(arg1, callback);},
+      a: function a(arg1, cb ){ return cb(arg1 + arg1);},
+      b: function b(arg1){ return this.a(arg1, callback);},
       c: "hello"
     };
     exportTest.b(1);
