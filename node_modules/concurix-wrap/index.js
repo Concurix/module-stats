@@ -170,7 +170,18 @@ module.exports = function wrap(wrapFun){
   return wrapperState;
 };
 
+// additional trace apis that are functions attached to the main function as properties
+module.exports.isWrapper = function isWrapper(obj){
+  if( obj.__concurix_wrapper_for__ ){
+    return true;
+  }
+  return false;
+}
 
+module.exports.getWrapper = function getWrapper(obj){
+  var proxy = obj.__concurix_wrapped_by__;
+  return proxy;
+}
 
 // helper functions
 

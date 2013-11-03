@@ -82,5 +82,20 @@ describe('basic wrapping test', function(){
       clientState.should.equal('hello');
       trace.moduleName.should.equal('test');
     });
-  });   
+  });
+
+  describe('test isWrapper', function() {
+    it('isWrapper should be true', function(){
+      var b = wrap(a).getProxy();
+      wrap.isWrapper(b).should.be.true;
+      wrap.isWrapper(a).should.be.false;
+    })
+  }); 
+
+  describe('test getWrapper', function(){
+    it('should get wrapper', function(){
+      var b = wrap(a).getProxy();
+      wrap.getWrapper(a).should.equal(b);
+    });
+  });
 });
