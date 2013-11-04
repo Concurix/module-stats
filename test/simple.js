@@ -276,7 +276,54 @@ describe('basic wrapping test', function(){
       linkCache[keys[0]].num_calls.should.equal(3);
       linkCache[keys[0]].total_delay.should.not.be.NaN;       
     });
-  });        
+  });  
+
+  describe('extend function arguments test', function(){
+    // simple test objects
+    function callback1(arg){ return arg*arg;}
+    function callback2(arg){ return arg+arg;}
+    
+    var exportTest = {
+      a: function a(cb1, cb2 ){ cb1(1); cb2(2); cb1.new1 = "hello"; cb2.new2 = "there"; },
+      b: function b(){ return this.a(callback1, callback2);},
+      c: "hello"
+    };
+    it('new properties should be reflected through', function(){
+      mstats.reset();
+      mstats.wrap("test", exportTest, null );
+      exportTest.a.__concurix_wrapper_for__.should.equal('a');
+      exportTest.b.__concurix_wrapper_for__.should.equal('b');
+      exportTest.b(1);
+      callback1.new1.should.equal('hello');
+      callback2.new2.should.equal('there');
+    });
+  });
+
+  describe('extend function arguments test with existing wrapped argument', function(){
+    // simple test objects
+    function callback1(arg){ return arg*arg;}
+    function callback2(arg){ return arg+arg;}
+    
+    var checkcb1,
+        checkcb2;
+    var exportTest = {
+      a: function a(cb1, cb2 ){ checkcb1 = cb1; checkcb2 = cb2; cb1(1); cb2(2); cb1.new1 = "hello"; cb2.new2 = "there"; },
+      b: function b(cb1, cb2){ return this.a(cb1, cb2);},
+      c: "hello",
+      d: function d(){ this.b(callback1, callback2);}
+    };
+    it('new properties should be reflected through', function(){
+      mstats.reset();
+      mstats.wrap("test", exportTest, null );
+      exportTest.a.__concurix_wrapper_for__.should.equal('a');
+      exportTest.b.__concurix_wrapper_for__.should.equal('b');
+      exportTest.d(1);
+      callback1.new1.should.equal('hello');
+      callback2.new2.should.equal('there');
+      wrap.isWrapper(checkcb1).should.be.true;
+      wrap.isWrapper(checkcb2).should.be.true;
+    });
+  });                
 
 });
   
