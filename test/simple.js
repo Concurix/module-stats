@@ -303,12 +303,14 @@ describe('basic wrapping test', function(){
     // simple test objects
     function callback1(arg){ return arg*arg;}
     function callback2(arg){ return arg+arg;}
+    function callback3(arg){ return arg+arg+arg;}
     
     var checkcb1,
-        checkcb2;
+        checkcb2,
+        checkcb3;
     var exportTest = {
-      a: function a(cb1, cb2 ){ checkcb1 = cb1; checkcb2 = cb2; cb1(1); cb2(2); cb1.new1 = "hello"; cb2.new2 = "there"; },
-      b: function b(cb1, cb2){ return this.a(cb1, cb2);},
+      a: function a(cb1, cb2, cb3){ checkcb1 = cb1; checkcb2 = cb2; checkcb3 = cb3; cb1(1); cb2(2); cb1.new1 = "hello"; cb2.new2 = "there"; },
+      b: function b(cb1, cb2){ return this.a(cb1, cb2, callback3);},
       c: "hello",
       d: function d(){ this.b(callback1, callback2);}
     };
@@ -322,6 +324,7 @@ describe('basic wrapping test', function(){
       callback2.new2.should.equal('there');
       wrap.isWrapper(checkcb1).should.be.true;
       wrap.isWrapper(checkcb2).should.be.true;
+      wrap.isWrapper(checkcb3).should.be.true;
     });
   });                
 
