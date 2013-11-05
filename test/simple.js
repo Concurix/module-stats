@@ -143,7 +143,7 @@ describe('basic wrapping test', function(){
     function beforeHook(trace, clientState){
       id = trace.funInfo.id;
     }
-    it('count for a should be 2', function(){
+    it('count for a should be 3', function(){
       mstats.reset();
       mstats.wrap("test", exportTest, {beforeHook: beforeHook});
       exportTest.a.__concurix_wrapper_for__.should.equal('a');
@@ -160,7 +160,7 @@ describe('basic wrapping test', function(){
       //now test the link cache
       var linkCache = global.concurix.traceAggregate.linkCache;
       var keys = Object.keys(linkCache);
-      keys.length.should.equal(2);
+      keys.length.should.equal(3);
       linkCache[keys[0]].num_calls.should.equal(3);
       linkCache[keys[0]].total_delay.should.not.be.NaN;  
     });
@@ -214,7 +214,7 @@ describe('basic wrapping test', function(){
       //now test the link cache
       var linkCache = global.concurix.traceAggregate.linkCache;
       var keys = Object.keys(linkCache);
-      keys.length.should.equal(2);
+      keys.length.should.equal(3);
       linkCache[keys[0]].num_calls.should.equal(3);
       linkCache[keys[0]].total_delay.should.not.be.NaN;       
     });
@@ -272,7 +272,7 @@ describe('basic wrapping test', function(){
       var linkCache = global.concurix.traceAggregate.linkCache;
       var keys = Object.keys(linkCache);
 
-      keys.length.should.equal(2);
+      keys.length.should.equal(3);
       linkCache[keys[0]].num_calls.should.equal(3);
       linkCache[keys[0]].total_delay.should.not.be.NaN;       
     });
