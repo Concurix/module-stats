@@ -98,4 +98,22 @@ describe('basic wrapping test', function(){
       wrap.getWrapper(a).should.equal(b);
     });
   });
+
+  describe('test extendOriginalToWrapper', function(){
+    it('should extend Original', function(){
+      var b = wrap(a).getProxy();
+      a.newField = 'hello';
+      b.should.not.have.property('newField');
+      wrap.extendOriginalToWrapper(b).newField.should.equal('hello');
+    });
+  });
+
+   describe('test extendWrapperToOriginal', function(){
+    it('should extend Original', function(){
+      var b = wrap(a).getProxy();
+      b.newField2 = 'hello';
+      a.should.not.have.property('newField2');
+      wrap.extendWrapperToOriginal(b).newField2.should.equal('hello');
+    });
+  }); 
 });

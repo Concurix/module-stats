@@ -183,6 +183,21 @@ module.exports.getWrapper = function getWrapper(obj){
   return proxy;
 }
 
+module.exports.extendOriginalToWrapper = function extendOriginalToWrapper(proxy){
+  if( proxy && proxy.__concurix_proxy_state__){
+    util.extend(proxy, proxy.__concurix_proxy_state__.orgFun);
+  }
+  return proxy;
+}
+
+module.exports.extendWrapperToOriginal = function extendWrapperToOriginal(proxy){
+  if( proxy && proxy.__concurix_proxy_state__){
+    util.extend(proxy.__concurix_proxy_state__.orgFun, proxy);
+    proxy.__concurix_proxy_state__.orgFun.prototype = proxy.prototype;
+  }
+  return proxy;
+}
+
 // helper functions
 
 function computeHash(str){
