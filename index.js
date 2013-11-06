@@ -7,9 +7,10 @@
 
 var wrapper = require('./lib/wrapper');
 var archive = require('./lib/archive');
+var os      = require('os');
 
 exports.wrap = function wrap(name, obj, options){
-  archive.configure(options);
+  options = configureOptions(options);
   if( obj ){
     return wrapper.wrapExports(name, obj, options);
   }
@@ -32,4 +33,23 @@ exports.stop = function stop(){
   if( global.concurix && global.concurix.traceAggregate ){
     global.concurix.traceAggregate.stop();
   }
+}
+
+function configureOptions(options){
+  var defaultOptions = {
+    hostname: os.hostname(),
+    archiveHost: 'api.concurix.com', // Change to localhost for local testing
+    archivePort: 80,
+    accountKey: '28164101-1362-769775-170247',
+    archiveInterval: 2000, 
+    logsPath: null,
+  };
+  
+  options = options || {};
+  Object.keys(options).forEach(function(name){
+    defaultOptions[name] = options[name];
+  });
+
+  archive.configure(options);
+  return defaultOptions;
 }
