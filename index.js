@@ -17,10 +17,15 @@ exports.wrap = function wrap(name, obj, options){
 }
 
 exports.reset = function reset(){
-  if( global.concurix && global.concurix.traceAggregate ){
-    global.concurix.traceAggregate.stop();
-    global.concurix.traceAggregate.start();
-  }
+  if( global.concurix ){
+    if( global.concurix.traceAggregate ){
+      global.concurix.traceAggregate.stop();
+      global.concurix.traceAggregate.start();
+    }
+    if( global.concurix.archive ){
+      global.concurix.archive.reset();
+    }
+  } 
 }
 
 exports.start = function start(){
@@ -30,8 +35,13 @@ exports.start = function start(){
 }
 
 exports.stop = function stop(){
-  if( global.concurix && global.concurix.traceAggregate ){
-    global.concurix.traceAggregate.stop();
+  if( global.concurix ){
+    if( global.concurix.traceAggregate ){
+      global.concurix.traceAggregate.stop();
+    }
+    if( global.concurix.archive ){
+      global.concurix.archive.stop();
+    }
   }
 }
 
@@ -50,6 +60,6 @@ function configureOptions(options){
     defaultOptions[name] = options[name];
   });
 
-  archive.configure(options);
+  archive.configure(defaultOptions);
   return defaultOptions;
 }
