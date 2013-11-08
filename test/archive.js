@@ -56,7 +56,8 @@ describe('archive tests', function(){
 
     it('count for a should be 3', function(done){
       function archiveListener(json){
-        console.log('got archive event ', json);
+        json.data.nodes.length.should.be.above(1);
+        json.data.links.length.should.be.above(1);
         done();
       }
       mstats.reset();
