@@ -2,6 +2,7 @@ var should = require('should');
 var mstats = require('../index.js');
 
 describe('archive tests', function(){  
+  this.timeout(5000);  //give ourselves some extra time if needed
   describe('callback test', function(){
     // simple test objects
     function callback(arg){ return arg;}
