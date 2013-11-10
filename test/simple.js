@@ -78,12 +78,12 @@ describe('basic wrapping test', function(){
       c: "hello"
     };
     var id = null;
-    function beforeHook(trace, clientState){
-      id = trace.funInfo.id;
+    function afterHook(trace, clientState){
+      id = trace.name;
     }
     it('count for a should be 2', function(){
       mstats.reset();
-      mstats.wrap("test", exportTest, {beforeHook: beforeHook});
+      mstats.wrap("test", exportTest, {afterHook: afterHook});
       exportTest.a.__concurix_wrapper_for__.should.equal('a');
       exportTest.b.__concurix_wrapper_for__.should.equal('b');
       exportTest.a();
@@ -104,12 +104,12 @@ describe('basic wrapping test', function(){
       c: "hello"
     };
     var id = null;
-    function beforeHook(trace, clientState){
-      id = trace.funInfo.id;
+    function afterHook(trace, clientState){
+      id = trace.name;
     }
     it('count for a should be 2', function(){
       mstats.reset();
-      mstats.wrap("test", exportTest, {beforeHook: beforeHook});
+      mstats.wrap("test", exportTest, {afterHook: afterHook});
       exportTest.a.__concurix_wrapper_for__.should.equal('a');
       exportTest.b.__concurix_wrapper_for__.should.equal('b');
       exportTest.b();
@@ -140,12 +140,12 @@ describe('basic wrapping test', function(){
     };
     exportTest.b(1);
     var id = null;
-    function beforeHook(trace, clientState){
-      id = trace.funInfo.id;
+    function afterHook(trace, clientState){
+      id = trace.name;
     }
     it('count for a should be 3', function(){
       mstats.reset();
-      mstats.wrap("test", exportTest, {beforeHook: beforeHook});
+      mstats.wrap("test", exportTest, {afterHook: afterHook});
       exportTest.a.__concurix_wrapper_for__.should.equal('a');
       exportTest.b.__concurix_wrapper_for__.should.equal('b');
       exportTest.b(1);
@@ -159,8 +159,7 @@ describe('basic wrapping test', function(){
       
       //now test the link cache
       var linkCache = global.concurix.traceAggregate.linkCache;
-      console.log('nodeCache', global.concurix.traceAggregate.nodeCache);
-      console.log('linkCache', linkCache);
+
       var keys = Object.keys(linkCache);
       keys.length.should.equal(3);
       linkCache[keys[0]].num_calls.should.equal(3);
@@ -179,13 +178,13 @@ describe('basic wrapping test', function(){
     };
     exportTest.b(1);
     var id = null;
-    function beforeHook(trace, clientState){
-      id = trace.funInfo.id;
+    function afterHook(trace, clientState){
+      id = trace.name;
     }
     it('should be started and stopped', function(){
       mstats.reset();
       mstats.stop();
-      mstats.wrap("test", exportTest, {beforeHook: beforeHook});
+      mstats.wrap("test", exportTest, {afterHook: afterHook});
       exportTest.a.__concurix_wrapper_for__.should.equal('a');
       exportTest.b.__concurix_wrapper_for__.should.equal('b');
       exportTest.b(1);
@@ -233,13 +232,13 @@ describe('basic wrapping test', function(){
     };
     exportTest.b(1);
     var id = null;
-    function beforeHook(trace, clientState){
-      id = trace.funInfo.id;
+    function afterHook(trace, clientState){
+      id = trace.name;
     }
     it('should be started and stopped and not double wrap', function(){
       mstats.reset();
       mstats.stop();
-      mstats.wrap("test", exportTest, {beforeHook: beforeHook});
+      mstats.wrap("test", exportTest, {afterHook: afterHook});
       exportTest.a.__concurix_wrapper_for__.should.equal('a');
       exportTest.b.__concurix_wrapper_for__.should.equal('b');
       exportTest.b(1);
@@ -257,7 +256,7 @@ describe('basic wrapping test', function(){
       mstats.start();
       
       // here is the double wrap call!!
-      mstats.wrap("test", exportTest, {beforeHook: beforeHook});
+      mstats.wrap("test", exportTest, {afterHook: afterHook});
 
       exportTest.a.__concurix_wrapper_for__.should.equal('a');
       exportTest.b.__concurix_wrapper_for__.should.equal('b');

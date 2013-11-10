@@ -14,12 +14,12 @@ describe('archive tests', function(){
     };
     exportTest.b(1);
     var id = null;
-    function beforeHook(trace, clientState){
-      id = trace.funInfo.id;
+    function afterHook(trace, clientState){
+      id = trace.name;
     }
     it('count for a should be 3', function(){
       mstats.reset();
-      mstats.wrap("test", exportTest, {beforeHook: beforeHook});
+      mstats.wrap("test", exportTest, {afterHook: afterHook});
       exportTest.a.__concurix_wrapper_for__.should.equal('a');
       exportTest.b.__concurix_wrapper_for__.should.equal('b');
       exportTest.b(1);
@@ -51,8 +51,8 @@ describe('archive tests', function(){
     };
     exportTest.b(1);
     var id = null;
-    function beforeHook(trace, clientState){
-      id = trace.funInfo.id;
+    function afterHook(trace, clientState){
+      id = trace.name;
     }
 
     it('count for a should be 3', function(done){
@@ -64,7 +64,7 @@ describe('archive tests', function(){
       mstats.reset();
       mstats.wrap("test", exportTest, 
         {
-          beforeHook: beforeHook, 
+          afterHook: afterHook, 
           archiveListener: archiveListener,
           archiveInterval: 50      // mocha will time out after 2000 ms.
         });

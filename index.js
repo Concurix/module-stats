@@ -48,7 +48,7 @@ exports.stop = function stop(){
 function configureOptions(options){
   var defaultOptions = {
     hostname: os.hostname(),
-    archiveHost: 'api.concurix.com', // Change to localhost for local testing
+    archiveHost: 'api.concurix.com', 
     archivePort: 80,
     accountKey: '28164101-1362-769775-170247',
     archiveInterval: 2000, 
