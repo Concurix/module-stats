@@ -159,6 +159,8 @@ describe('basic wrapping test', function(){
       
       //now test the link cache
       var linkCache = global.concurix.traceAggregate.linkCache;
+      console.log('nodeCache', global.concurix.traceAggregate.nodeCache);
+      console.log('linkCache', linkCache);
       var keys = Object.keys(linkCache);
       keys.length.should.equal(3);
       linkCache[keys[0]].num_calls.should.equal(3);
