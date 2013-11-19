@@ -23,8 +23,8 @@
     "url": "https://github.com/Concurix/module-stats/issues"
   },
   "devDependencies": {
-    "mocha": "~1.13.0",
-    "should": "~1.3.0"
+    "mocha": "~1.14.0",
+    "should": "~2.1.0"
   },
   "dependencies": {
     "concurix-wrap": "latest",
