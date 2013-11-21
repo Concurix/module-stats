@@ -56,16 +56,25 @@ describe('archive tests', function(){
     }
 
     it('count for a should be 3', function(done){
+      var doneCalled = false;
       function archiveListener(json){
         json.data.nodes.length.should.be.above(1);
         json.data.links.length.should.be.above(1);
         done();
+      }
+      function archiveOffline(err){
+        //we're on a plane or otherwise offline
+        if( !doneCalled ){
+          doneCalled = true;
+          done();
+        }
       }
       mstats.reset();
       mstats.wrap("test", exportTest, 
         {
           afterHook: afterHook, 
           archiveListener: archiveListener,
+          archiveOffline: archiveOffline,
           archiveInterval: 50      // mocha will time out after 2000 ms.
         });
       exportTest.a.__concurix_wrapper_for__.should.equal('a');
