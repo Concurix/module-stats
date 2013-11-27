@@ -16,6 +16,12 @@ exports.wrap = function wrap(name, obj, options){
   }
 }
 
+exports.blacklist = function blacklist(obj) {
+  if (obj) {
+    wrapper.blacklist(obj);
+  }
+}
+
 exports.reset = function reset(){
   if( global.concurix ){
     if( global.concurix.traceAggregate ){
