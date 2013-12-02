@@ -10,6 +10,9 @@ This is a utility library used by [concurix-monitor](http://npm.im/concurix-moni
 
 [![Build Status](https://travis-ci.org/Concurix/module-stats?branch=master)](https://travis-ci.org/Concurix/module-stats)
 
+API
+===
+Coming soon!  
 
 LICENSE
 ===
