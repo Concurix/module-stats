@@ -8,7 +8,7 @@ This is a utility library used by [concurix-monitor](http://npm.im/concurix-moni
 [![david-dm](https://david-dm.org/Concurix/module-stats.png)](https://david-dm.org/Concurix/module-stats)
 [![david-dm](https://david-dm.org/Concurix/module-stats/dev-status.png)](https://david-dm.org/Concurix/module-stats#info=devDependencies)
 
-[![Build Status](https://travis-ci.org/Concurix/module-stats?branch=master)](https://travis-ci.org/Concurix/module-stats)
+[![Build Status](https://travis-ci.org/Concurix/module-stats.png?branch=master)](https://travis-ci.org/Concurix/module-stats)
 
 API
 ===
