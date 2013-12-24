@@ -23,11 +23,11 @@
     "url": "https://github.com/Concurix/module-stats/issues"
   },
   "devDependencies": {
-    "mocha": "~1.15.1",
+    "mocha": "~1.16.2",
     "should": "~2.1.1"
   },
   "dependencies": {
-    "concurix-wrap": "0.0.17",
-    "aws-sdk": "~2.0.0-rc3"
+    "concurix-wrap": "0.0.18",
+    "aws-sdk": "~2.0.0-rc4"
   }
 }
