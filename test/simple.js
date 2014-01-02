@@ -90,7 +90,6 @@ describe('basic wrapping test', function(){
       exportTest.a();
       global.concurix.traceAggregate.nodeCache[id].num_calls.should.equal(2);
       global.concurix.traceAggregate.nodeCache[id].duration.should.not.be.NaN;
-      global.concurix.traceAggregate.nodeCache[id].mem_delta.should.not.be.NaN;
       exportTest.b();
       global.concurix.traceAggregate.nodeCache[id].num_calls.should.equal(1);      
     });
@@ -116,7 +115,6 @@ describe('basic wrapping test', function(){
       exportTest.b();
       global.concurix.traceAggregate.nodeCache[id].num_calls.should.equal(2);
       global.concurix.traceAggregate.nodeCache[id].duration.should.not.be.NaN;
-      global.concurix.traceAggregate.nodeCache[id].mem_delta.should.not.be.NaN;
       exportTest.b();
       global.concurix.traceAggregate.nodeCache[id].num_calls.should.equal(3); 
       
@@ -153,7 +151,6 @@ describe('basic wrapping test', function(){
       //console.log('cache ', global.concurix.traceAggregate.linkCache);
       global.concurix.traceAggregate.nodeCache[id].num_calls.should.equal(2);
       global.concurix.traceAggregate.nodeCache[id].duration.should.not.be.NaN;
-      global.concurix.traceAggregate.nodeCache[id].mem_delta.should.not.be.NaN;
       exportTest.b(3);
       global.concurix.traceAggregate.nodeCache[id].num_calls.should.equal(3); 
       
@@ -208,7 +205,6 @@ describe('basic wrapping test', function(){
       //console.log('cache ', global.concurix.traceAggregate.linkCache);
       global.concurix.traceAggregate.nodeCache[id].num_calls.should.equal(2);
       global.concurix.traceAggregate.nodeCache[id].duration.should.not.be.NaN;
-      global.concurix.traceAggregate.nodeCache[id].mem_delta.should.not.be.NaN;
       exportTest.b(3);
       global.concurix.traceAggregate.nodeCache[id].num_calls.should.equal(3); 
       
@@ -265,7 +261,6 @@ describe('basic wrapping test', function(){
       //console.log('cache ', global.concurix.traceAggregate.linkCache);
       global.concurix.traceAggregate.nodeCache[id].num_calls.should.equal(2);
       global.concurix.traceAggregate.nodeCache[id].duration.should.not.be.NaN;
-      global.concurix.traceAggregate.nodeCache[id].mem_delta.should.not.be.NaN;
       exportTest.b(3);
       global.concurix.traceAggregate.nodeCache[id].num_calls.should.equal(3); 
       
