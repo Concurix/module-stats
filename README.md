@@ -12,9 +12,33 @@ This is a utility library used by [concurix-monitor](http://npm.im/concurix-moni
 
 API
 ===
-Coming soon!  
+### wrap(name:String, mod:Object, opts:Object)
+Initializes a tracer for an individual module `mod` with `name` (typically the name used in the invocation of require).
+
+The following options are suported:
+
+* ``accountKey`` your account key, data is collected and analyzed per account key
+* ``archiveInterval`` time in milliseconds for sending data to the cloud for analysis and visualization.  Defaults to  60000 for `NODE_ENV=production`, 2000 (2 seconds) otherwise.
+
+### blacklist(mod:Object)
+
+Blacklists the given object, so that no tracing is performed.
+
+### reset()
+
+Stops tracing, clears any cached data, and starts again.
+
+### start()
+
+Starts tracing any wrapped objects.
+
+### stop()
+
+Stops tracing.
 
 LICENSE
 ===
 
 MIT
+
+
