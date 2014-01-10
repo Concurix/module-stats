@@ -1,6 +1,6 @@
 {
   "name": "module-stats",
-  "version": "0.5.4",
+  "version": "0.5.5",
   "description": "Usage statistics for Node.js modules.",
   "main": "index.js",
   "scripts": {
