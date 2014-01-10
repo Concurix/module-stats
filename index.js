@@ -57,7 +57,7 @@ function configureOptions(options){
     archiveHost: 'api.concurix.com', 
     archivePort: 80,
     accountKey: '28164101-1362-769775-170247',
-    archiveInterval: 2000, 
+    archiveInterval: process.env.NODE_ENV == 'production' ? 600000 : 2000, 
     logsPath: null,
   };
   
