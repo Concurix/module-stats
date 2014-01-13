@@ -27,7 +27,7 @@
     "should": "~2.1.1"
   },
   "dependencies": {
-    "concurix-wrap": "0.5.0",
-    "aws-sdk": "~2.0.0-rc5"
+    "concurix-wrap": "0.5.1",
+    "aws-sdk": "~2.0.0-rc7"
   }
 }
