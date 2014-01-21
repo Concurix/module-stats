@@ -1,71 +1,46 @@
 /* module-stats
- 
+
  A utility for collecting usage information on a per module basis
 
- Copyright 2013 Concurix Corporation
+ Copyright 2013-2014 Concurix Corporation
 */
 
-var wrapper = require('./lib/wrapper');
-var archive = require('./lib/archive');
-var os      = require('os');
+// TODO !!!!! Enforce uniqueness
 
-exports.wrap = function wrap(name, obj, options){
-  options = configureOptions(options);
-  if( obj ){
-    return wrapper.wrapExports(name, obj, options);
-  }
-}
+module.exports = ModuleStats
 
-exports.blacklist = function blacklist(obj) {
-  if (obj) {
-    wrapper.blacklist(obj);
-  }
-}
+var xtend = require('xtend');
+var Wrapper = require('./lib/wrapper');
+var Archiver = require('./lib/archive');
+var Aggregator = require('./lib/aggregate')
 
-exports.reset = function reset(){
-  if( global.concurix ){
-    if( global.concurix.traceAggregate ){
-      global.concurix.traceAggregate.stop();
-      global.concurix.traceAggregate.start();
-    }
-    if( global.concurix.archive ){
-      global.concurix.archive.reset();
-    }
-  } 
-}
+function ModuleStats(options) {
+  if (!(this instanceof ModuleStats)) return new ModuleStats(options);
 
-exports.start = function start(){
-  if( global.concurix && global.concurix.traceAggregate ){
-    global.concurix.traceAggregate.start();
-  }
-}
-
-exports.stop = function stop(){
-  if( global.concurix ){
-    if( global.concurix.traceAggregate ){
-      global.concurix.traceAggregate.stop();
-    }
-    if( global.concurix.archive ){
-      global.concurix.archive.stop();
-    }
-  }
-}
-
-function configureOptions(options){
-  var defaultOptions = {
-    hostname: os.hostname(),
-    archiveHost: 'api.concurix.com', 
-    archivePort: 80,
+  var defaults = {
+    // TODO select appropriate module-stats only accountKey
     accountKey: '28164101-1362-769775-170247',
-    archiveInterval: process.env.NODE_ENV == 'production' ? 60000 : 2000, 
-    logsPath: null,
+    archiveInterval: process.env.NODE_ENV == 'production' ? 60000 : 2000,
   };
-  
-  options = options || {};
-  Object.keys(options).forEach(function(name){
-    defaultOptions[name] = options[name];
-  });
 
-  archive.configure(defaultOptions);
-  return defaultOptions;
+  this.options = xtend(defaults, options);
+  this.aggregator = Aggregator(this.options);
+  this.archiver = Archiver(this.aggregator, this.options);
+  this.wrapper = Wrapper(this.aggregator, this.options);
+}
+ModuleStats.prototype.wrap = function wrap(name, obj) {
+  if (obj != null) {
+    return this.wrapper.wrapExports(name, obj);
+  }
+}
+ModuleStats.prototype.blacklist = function blacklist(obj) {
+  if (obj != null) {
+    this.wrapper.blacklist(obj);
+  }
+}
+ModuleStats.prototype.start = function start() {
+  this.archiver.start();
+}
+ModuleStats.prototype.stop = function stop() {
+  this.archiver.finish();
 }

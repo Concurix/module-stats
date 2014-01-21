@@ -28,6 +28,6 @@
   },
   "dependencies": {
     "concurix-wrap": "0.5.1",
-    "aws-sdk": "~2.0.0-rc7"
+    "xtend": "~2.1.2"
   }
 }
