@@ -12,14 +12,25 @@ module.exports = ModuleStats
 var xtend = require('xtend');
 var Wrapper = require('./lib/wrapper');
 var Archiver = require('./lib/archive');
-var Aggregator = require('./lib/aggregate')
+var Aggregator = require('./lib/aggregate');
+var path = require('path');
 
 function ModuleStats(options) {
   if (!(this instanceof ModuleStats)) return new ModuleStats(options);
 
+  var key = options.accountKey;
+
+  if (key == null) {
+    try {
+      key = "modulestats~" + require(path.resolve(".") + "/package.json").name;
+    }
+    catch (e) {
+      key = "modulestats~unknown";
+    }
+  }
+
   var defaults = {
-    // TODO select appropriate module-stats only accountKey
-    accountKey: '28164101-1362-769775-170247',
+    accountKey: key,
     archiveInterval: process.env.NODE_ENV == 'production' ? 60000 : 2000,
   };
 
