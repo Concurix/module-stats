@@ -47,9 +47,10 @@ function ModuleStats(options) {
 
   global.concurix.moduleStats = this;
 }
-ModuleStats.prototype.wrap = function wrap(name, obj) {
+ModuleStats.prototype.wrap = function wrap(name, obj, options) {
+  // options can override global options
   if (obj != null) {
-    return this.wrapper.wrapExports(name, obj);
+    return this.wrapper.wrapExports(name, obj, options);
   }
 }
 ModuleStats.prototype.blacklist = function blacklist(obj) {
