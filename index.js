@@ -5,8 +5,6 @@
  Copyright 2013-2014 Concurix Corporation
 */
 
-// TODO !!!!! Enforce uniqueness
-
 module.exports = ModuleStats
 
 var xtend = require('xtend');
@@ -17,6 +15,14 @@ var path = require('path');
 
 function ModuleStats(options) {
   if (!(this instanceof ModuleStats)) return new ModuleStats(options);
+
+  // Force uniqueness of module-stats. This means first one wins, fwiw.
+  if (global.concurix == null) {
+    global.concurix = {};
+  }
+  if (global.concurix.moduleStats) {
+    return global.concurix.moduleStats;
+  }
 
   var key = options.accountKey;
 
@@ -38,6 +44,8 @@ function ModuleStats(options) {
   this.aggregator = Aggregator(this.options);
   this.archiver = Archiver(this.aggregator, this.options);
   this.wrapper = Wrapper(this.aggregator, this.options);
+
+  global.concurix.moduleStats = this;
 }
 ModuleStats.prototype.wrap = function wrap(name, obj) {
   if (obj != null) {
