@@ -4,7 +4,7 @@
   "description": "Usage statistics for Node.js modules.",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/.bin/mocha"
+    "test": "node test/"
   },
   "repository": {
     "type": "git",
@@ -22,12 +22,10 @@
   "bugs": {
     "url": "https://github.com/Concurix/module-stats/issues"
   },
-  "devDependencies": {
-    "mocha": "~1.17.0",
-    "should": "~2.1.1"
-  },
+  "devDependencies": {},
   "dependencies": {
     "concurix-wrap": "0.5.1",
-    "xtend": "~2.1.2"
+    "xtend": "~2.1.2",
+    "tape": "~2.3.2"
   }
 }
