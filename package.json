@@ -23,7 +23,7 @@
     "url": "https://github.com/Concurix/module-stats/issues"
   },
   "devDependencies": {
-    "tape": "~2.3.2"
+    "tape": "~2.4.2"
   },
   "dependencies": {
     "concurix-wrap": "0.5.1",
