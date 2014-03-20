@@ -79,6 +79,29 @@ test("basic: before hook", function (t) {
   t.equals(clientState.val, 3);
 })
 
+test("wrap a constructor", function (t) {
+  function Cat() {
+    if (!(this instanceof Cat)) return new Cat();
+  }
+  var C = mstats.wrap("Cat", Cat);
+  var c = C();
+  t.ok(c instanceof Cat);
+  t.ok(C.__concurix_wrapper_for__ === "Cat");
+  t.end();
+})
+
+test("abort wraping a non-exensible Obj", function (t) {
+  function Cat() {
+    if (!(this instanceof Cat)) return new Cat();
+  }
+  Object.preventExtensions(Cat);
+  var C = mstats.wrap("Cat", Cat);
+  var c = C();
+  t.ok(c instanceof Cat);
+  t.notOk(C.__concurix_wrapper_for__ === "Cat");
+  t.end();
+})
+
 test("basic: call count test", function (t) {
   t.plan(5);
   var exportTest = {

@@ -26,7 +26,7 @@
     "tape": "~2.10.2"
   },
   "dependencies": {
-    "concurix-wrap": "0.5.2",
+    "concurix-wrap": "0.5.3",
     "xtend": "~2.1.2"
   }
 }
