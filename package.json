@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "concurix-wrap": "0.5.4",
-    "xtend": "~2.1.2"
+    "xtend": "~2.1.2",
+    "cx-outliers": "0.0.4"
   }
 }
